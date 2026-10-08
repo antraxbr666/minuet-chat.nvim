@@ -2,13 +2,9 @@
 
 # Minuet Chat for Neovim
 
-[![Release](https://img.shields.io/github/v/release/minuet-chat/minuet-chat.nvim?logo=github&style=for-the-badge)](https://github.com/minuet-chat/minuet-chat.nvim/releases/latest)
-[![Build](https://img.shields.io/github/actions/workflow/status/minuet-chat/minuet-chat.nvim/ci.yml?logo=github&style=for-the-badge)](https://github.com/minuet-chat/minuet-chat.nvim/actions/workflows/ci.yml)
-[![Documentation](https://img.shields.io/badge/documentation-up-green.svg?logo=vim&style=for-the-badge)](https://minuet-chat.github.io/minuet-chat.nvim/)
-
-[![Contributors](https://img.shields.io/github/all-contributors/minuet-chat/minuet-chat.nvim?color=ee8449&logo=github&label=contributors&style=for-the-badge)](#contributors)
-[![Discord](https://img.shields.io/discord/1200633211236122665?logo=discord&label=discord&style=for-the-badge)](https://discord.gg/vy6hJsTWaZ)
-[![Dotfyle](https://dotfyle.com/plugins/minuet-chat/minuet-chat.nvim/shield?style=for-the-badge)](https://dotfyle.com/plugins/minuet-chat/minuet-chat.nvim)
+[![Last commit](https://img.shields.io/github/last-commit/antraxbr666/minuet-chat.nvim?logo=github&style=for-the-badge)](https://github.com/antraxbr666/minuet-chat.nvim/commits)
+[![License](https://img.shields.io/github/license/antraxbr666/minuet-chat.nvim?style=for-the-badge)](LICENSE)
+[![Neovim](https://img.shields.io/badge/Neovim-0.10%2B-57A143?logo=neovim&logoColor=white&style=for-the-badge)](https://neovim.io/)
 
 ![image](https://github.com/user-attachments/assets/9ee30811-0fb8-4500-91f6-34ea6b26adea)
 
