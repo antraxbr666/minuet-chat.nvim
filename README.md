@@ -59,7 +59,7 @@ For various plugin pickers to work correctly, you need to replace `vim.ui.select
 ```lua
 return {
   {
-    "minuet-chat/minuet-chat.nvim",
+    "antraxbr666/minuet-chat.nvim",
     dependencies = {
       { "nvim-lua/plenary.nvim", branch = "master" },
     },
@@ -71,12 +71,82 @@ return {
 }
 ```
 
+## [LazyVim](https://www.lazyvim.org/)
+
+Create `lua/plugins/minuet-chat.lua`. The plugin is lazy-loaded on its commands and keymaps:
+
+```lua
+-- lua/plugins/minuet-chat.lua
+return {
+  {
+    "antraxbr666/minuet-chat.nvim",
+    main = "MinuetChat",
+    build = "make tiktoken",
+    cmd = {
+      "MinuetChat",
+      "MinuetChatOpen",
+      "MinuetChatClose",
+      "MinuetChatToggle",
+      "MinuetChatStop",
+      "MinuetChatReset",
+      "MinuetChatModels",
+      "MinuetChatPrompts",
+      "MinuetChatSave",
+      "MinuetChatLoad",
+      "MinuetChatExplain",
+      "MinuetChatReview",
+      "MinuetChatFix",
+      "MinuetChatOptimize",
+      "MinuetChatDocs",
+      "MinuetChatTests",
+      "MinuetChatCommit",
+    },
+    dependencies = {
+      { "nvim-lua/plenary.nvim", branch = "master" },
+    },
+    opts = {
+      -- See Configuration section for options
+    },
+    keys = {
+      { "<leader>ac", "<cmd>MinuetChatToggle<cr>", mode = { "n", "v" }, desc = "Minuet Chat" },
+      { "<leader>am", "<cmd>MinuetChatModels<cr>", desc = "Minuet Models" },
+    },
+  },
+}
+```
+
+> [!NOTE]
+> Prompt commands such as `:MinuetChatDocs` are created by `setup()`. List them in `cmd` so they work before the plugin is loaded.
+
+### which-key group
+
+Without a group, which-key shows `<leader>a` as `+2 keymaps`. To show a named group with an icon, register it in a separate file, `lua/plugins/which-key.lua`:
+
+```lua
+-- lua/plugins/which-key.lua
+return {
+  "folke/which-key.nvim",
+  opts = {
+    spec = {
+      { "<leader>a", group = "Minuet Chat", icon = { icon = "🤖", color = "purple" } },
+      { "<leader>ac", icon = { icon = "🤖", color = "purple" } },
+      { "<leader>am", icon = { icon = "󰚩", color = "cyan" } },
+    },
+  },
+}
+```
+
+LazyVim merges `spec` (`opts_extend = { "spec" }`), so the default groups are kept. Restart Neovim to apply.
+
+> [!TIP]
+> Some terminals render the 🤖 emoji two columns wide, which misaligns the menu. If that happens, use the Nerd Font icon `󰚩` (`nf-md-robot`) instead.
+
 ## [vim-plug](https://github.com/junegunn/vim-plug)
 
 ```vim
 call plug#begin()
 Plug 'nvim-lua/plenary.nvim'
-Plug 'minuet-chat/minuet-chat.nvim'
+Plug 'antraxbr666/minuet-chat.nvim'
 call plug#end()
 
 lua << EOF
