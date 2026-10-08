@@ -6,6 +6,8 @@
 [![License](https://img.shields.io/github/license/antraxbr666/minuet-chat.nvim?style=for-the-badge)](LICENSE)
 [![Neovim](https://img.shields.io/badge/Neovim-0.10%2B-57A143?logo=neovim&logoColor=white&style=for-the-badge)](https://neovim.io/)
 
+![Minuet Chat documenting a LazyVim plugin spec with DeepSeek Flash](assets/screenshot.png)
+
 </div>
 
 minuet-chat.nvim brings AI chat capabilities directly into Neovim with support for any OpenAI-compatible API provider.
@@ -729,7 +731,3 @@ See [CONTRIBUTING.md](/CONTRIBUTING.md) for detailed guidelines.
 # Credits
 
 minuet-chat.nvim is a fork of [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim), reworked to use any OpenAI-compatible API instead of GitHub Copilot. Thanks to its authors and contributors for the original work. Both projects are licensed under the [GPL-3.0](LICENSE).
-
-# Stargazers
-
-[![Stargazers over time](https://starchart.cc/antraxbr666/minuet-chat.nvim.svg?variant=adaptive)](https://starchart.cc/antraxbr666/minuet-chat.nvim)
