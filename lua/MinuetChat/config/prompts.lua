@@ -7,7 +7,7 @@
 return {
   MINUET_BASE = {
     system_prompt = [[
-When asked for your name, you must respond with "Copilot".
+When asked for your name, you must respond with "Minuet".
 Follow the user's requirements carefully & to the letter.
 Keep your answers short and impersonal.
 Always answer in {LANGUAGE} unless explicitly asked otherwise.
@@ -131,7 +131,7 @@ If no issues found, confirm the code is well-written and explain why.
               col = 0,
               message = message,
               severity = vim.diagnostic.severity.WARN,
-              source = 'Copilot Review',
+              source = 'Minuet Review',
             })
           end
         end

@@ -2,7 +2,7 @@
 
 ## Overview
 
-Neovim plugin (pure Lua) providing GitHub Copilot Chat integration. Requires Neovim 0.10.0+, curl 8.0.0+, plenary.nvim.
+Neovim plugin (pure Lua) providing AI chat for any OpenAI-compatible API (OpenAI, DeepSeek, Ollama, etc.). Requires Neovim 0.10.0+, curl 8.0.0+, plenary.nvim.
 
 ## Commands
 
@@ -10,7 +10,7 @@ Neovim plugin (pure Lua) providing GitHub Copilot Chat integration. Requires Neo
 # Run tests (headless Neovim + plenary test harness)
 make test
 
-# Format check (what CI runs)
+# Format check
 stylua --check .
 ```
 
@@ -22,7 +22,7 @@ stylua --check .
 plugin/MinuetChat.lua    — Neovim plugin entry: commands, highlights, autocmds
 lua/MinuetChat/
   init.lua                — Main module: setup(), ask(), open/close/toggle, save/load
-  client.lua              — Copilot API client (auth, streaming, tool calls)
+  client.lua              — OpenAI-compatible API client (headers, streaming, tool calls)
   config.lua              — Default configuration schema
   config/                 — Sub-configs: functions, mappings, prompts, providers
   constants.lua           — Shared constants (roles, etc.)
@@ -43,7 +43,7 @@ tests/                    — Plenary busted-style specs (*_spec.lua)
 scripts/
   test.lua                — Test runner bootstrap (sets up plenary)
   minimal.lua             — Minimal reproduction config
-doc/MinuetChat.txt       — Auto-generated vimdoc (do NOT edit; generated from README by panvimdoc in CI)
+doc/MinuetChat.txt       — Vimdoc generated from README by panvimdoc (`make docs`); do NOT edit by hand
 ```
 
 ## Style and formatting
@@ -57,15 +57,13 @@ doc/MinuetChat.txt       — Auto-generated vimdoc (do NOT edit; generated from 
 
 - Framework: plenary.nvim busted-style (`describe`, `it`, `before_each`, `after_each`, `assert`).
 - Test files live in `tests/` and must be named `*_spec.lua`.
-- CI runs tests against Neovim nightly with LuaJIT 2.1 and LuaRocks 3.12.2.
-- Tests are unit-level (class, diff, utils, orderedmap, stringbuffer, functions, init). No integration tests requiring Copilot auth.
+- Tests are unit-level (class, diff, utils, orderedmap, stringbuffer, functions, init). No integration tests requiring a real API key.
 
-## CI and releases
+## Docs and releases
 
-- CI (`ci.yml`): lint (StyLua) + test (plenary) on all PRs; vimdoc generation on main only.
-- Releases via release-please (`simple` type). Version tracked in `version.txt`.
-- `doc/MinuetChat.txt` is auto-committed by CI — do not edit manually.
-- `CHANGELOG.md` is managed by release-please — do not edit manually.
+- No CI is configured yet. Run `make test` and `stylua --check .` locally before pushing.
+- Regenerate `doc/MinuetChat.txt` with `make docs` after changing `README.md` (needs `pandoc`).
+- Version is tracked in `version.txt`. Record user-facing changes in `CHANGELOG.md`.
 
 ## Key gotchas
 

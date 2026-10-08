@@ -20,7 +20,7 @@ endif
 LUA_VERSIONS := luajit lua51
 BUILD_DIR := build
 
-.PHONY: help install-cli install-pre-commit install test tiktoken clean
+.PHONY: help install-cli install-pre-commit install test docs tiktoken clean
 
 install-pre-commit:
 	pip install pre-commit
@@ -28,6 +28,18 @@ install-pre-commit:
 
 test:
 	nvim --headless --clean -u ./scripts/test.lua
+
+PANVIMDOC_DIR ?= .dependencies/panvimdoc
+
+docs:
+	@test -d $(PANVIMDOC_DIR) || git clone --depth 1 https://github.com/kdheepak/panvimdoc $(PANVIMDOC_DIR)
+	pandoc --metadata=project:MinuetChat --metadata=vimversion:"NVIM v0.10.0" \
+		--metadata=toc:true --metadata=description:"" --metadata=titledatepattern:"%Y %B %d" \
+		--metadata=dedupsubheadings:true --metadata=ignorerawblocks:true --metadata=docmapping:false \
+		--metadata=docmappingproject:true --metadata=treesitter:true --metadata=incrementheadinglevelby:0 \
+		--lua-filter $(PANVIMDOC_DIR)/scripts/include-files.lua \
+		--lua-filter $(PANVIMDOC_DIR)/scripts/skip-blocks.lua \
+		-t $(PANVIMDOC_DIR)/scripts/panvimdoc.lua README.md -o doc/MinuetChat.txt
 
 all: luajit
 

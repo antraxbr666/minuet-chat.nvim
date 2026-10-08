@@ -61,7 +61,7 @@ return {
 
   system_prompt = require('MinuetChat.config.prompts').MINUET_INSTRUCTIONS.system_prompt, -- System prompt to use (can be specified manually in prompt via /).
 
-  model = 'gpt-4o', -- Default model to use, see ':MinuetChatModels' for available models (can be specified manually in prompt via $).
+  model = 'gpt-6-luna', -- Default model to use, see ':MinuetChatModels' for available models (can be specified manually in prompt via $).
   tools = nil, -- Default tool or array of tools (or groups) to share with LLM (can be specified manually in prompt via @).
   resources = 'selection', -- Default resources to share with LLM (can be specified manually in prompt via #).
   sticky = nil, -- Default sticky prompt or array of sticky prompts to use at start of every new chat (can be specified manually in prompt via >).

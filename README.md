@@ -6,10 +6,6 @@
 [![License](https://img.shields.io/github/license/antraxbr666/minuet-chat.nvim?style=for-the-badge)](LICENSE)
 [![Neovim](https://img.shields.io/badge/Neovim-0.10%2B-57A143?logo=neovim&logoColor=white&style=for-the-badge)](https://neovim.io/)
 
-![image](https://github.com/user-attachments/assets/9ee30811-0fb8-4500-91f6-34ea6b26adea)
-
-https://github.com/user-attachments/assets/8cad5643-63b2-4641-a5c4-68bc313f20e6
-
 </div>
 
 minuet-chat.nvim brings AI chat capabilities directly into Neovim with support for any OpenAI-compatible API provider.
@@ -21,7 +17,7 @@ minuet-chat.nvim brings AI chat capabilities directly into Neovim with support f
 - 🎯 **Smart Prompts** - Composable templates and sticky prompts for consistent context
 - ⚡ **Token Efficient** - Resource replacement prevents duplicate context, history management via tiktoken counting
 - 🔗 **Scriptable** - Comprehensive Lua API for automation and headless mode operation
-- 🔌 **Extensible** - [Custom functions](https://github.com/minuet-chat/minuet-chat.nvim/discussions/categories/functions) and [providers](https://github.com/minuet-chat/minuet-chat.nvim/discussions/categories/providers), plus integrations like [mcphub.nvim](https://github.com/ravitemer/mcphub.nvim)
+- 🔌 **Extensible** - [Custom functions](#functions) and [providers](#providers), plus integrations like [mcphub.nvim](https://github.com/ravitemer/mcphub.nvim)
 
 # Installation
 
@@ -305,7 +301,7 @@ Most users only need to configure a few options:
 
 ```lua
 {
-  model = 'gpt-4o',            -- AI model to use
+  model = 'gpt-6-luna',        -- AI model to use
   temperature = 0.1,           -- Lower = focused, higher = creative
   trusted_tools = nil,         -- Require approval for all tool calls
   window = {
@@ -376,7 +372,7 @@ Types of highlights:
 - `MinuetChatResource` - Resource highlight in chat buffer (e.g. `#file`, `#gitdiff`)
 - `MinuetChatTool` - Tool call highlight in chat buffer (e.g. `@minuet`)
 - `MinuetChatPrompt` - Prompt highlight in chat buffer (e.g. `/Explain`, `/Review`)
-- `MinuetChatModel` - Model highlight in chat buffer (e.g. `$gpt-5-mini`)
+- `MinuetChatModel` - Model highlight in chat buffer (e.g. `$gpt-6-luna`)
 - `MinuetChatUri` - URI highlight in chat buffer (e.g. `##https://...`)
 - `MinuetChatAnnotation` - Annotation highlight in chat buffer (file headers, tool call headers, tool call body)
 - `MinuetChatAnnotationHeader` - Annotation header highlight in chat buffer
@@ -486,25 +482,25 @@ The plugin comes with a built-in `openai` provider that works with any OpenAI-co
       api_key = 'sk-...',
       base_url = 'https://api.openai.com/v1',
       models = {
-        { id = 'gpt-4o', name = 'GPT-4o', max_input_tokens = 128000, max_output_tokens = 16384, streaming = true, tools = true },
-        { id = 'gpt-4o-mini', name = 'GPT-4o mini', max_input_tokens = 128000, max_output_tokens = 16384, streaming = true, tools = true },
+        { id = 'gpt-6-luna', name = 'GPT-6 Luna', max_input_tokens = 1050000, max_output_tokens = 128000, streaming = true, tools = true },
+        { id = 'gpt-6.1-sol', name = 'GPT-6.1 Sol', max_input_tokens = 1050000, max_output_tokens = 128000, streaming = true, tools = true },
       },
     },
   }
 }
 ```
 
-### Deepseek
+### DeepSeek
 
 ```lua
 {
   providers = {
     openai = {
-      api_key = 'sk-...',
-      base_url = 'https://api.deepseek.com/v1',
+      api_key = vim.env.DEEPSEEK_API_KEY,
+      base_url = 'https://api.deepseek.com',
       models = {
-        { id = 'deepseek-chat', name = 'Deepseek Chat', max_input_tokens = 64000, max_output_tokens = 8192, streaming = true, tools = true },
-        { id = 'deepseek-reasoner', name = 'Deepseek Reasoner', max_input_tokens = 64000, max_output_tokens = 8192, streaming = true, tools = true },
+        { id = 'deepseek-flash', name = 'DeepSeek Flash', max_input_tokens = 1000000, max_output_tokens = 384000, streaming = true, tools = true },
+        { id = 'deepseek-v4-pro', name = 'DeepSeek V4 Pro', max_input_tokens = 1000000, max_output_tokens = 384000, streaming = true, tools = true },
       },
     },
   }
@@ -536,7 +532,7 @@ You can also add custom providers:
     my_provider = {
       get_url = function(opts) return 'https://api.example.com/chat' end,
       get_headers = function() return { ['Authorization'] = 'Bearer ' .. api_key } end,
-      get_models = function() return { { id = 'gpt-4o', name = 'GPT-4o' } } end,
+      get_models = function() return { { id = 'my-model', name = 'My Model' } } end,
       prepare_input = require('MinuetChat.config.providers').openai.prepare_input,
       prepare_output = require('MinuetChat.config.providers').openai.prepare_output,
     }
@@ -672,7 +668,7 @@ require('MinuetChat').load('my_debugging_session')
 
 -- Use custom sticky and model
 require('MinuetChat').ask('How can I optimize this?', {
-  model = 'gpt-5-mini',
+  model = 'gpt-6-luna',
   sticky = { '#buffer', '#gitdiff:staged' },
 })
 
@@ -682,7 +678,6 @@ require('MinuetChat').setup({
 })
 ```
 
-For more examples, see the [examples wiki page](https://github.com/minuet-chat/minuet-chat.nvim/wiki/Examples-and-Tips).
 
 # Development
 
@@ -693,7 +688,7 @@ To set up the environment:
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/minuet-chat/minuet-chat.nvim
+git clone https://github.com/antraxbr666/minuet-chat.nvim
 cd minuet-chat.nvim
 ```
 
@@ -709,7 +704,7 @@ To run tests:
 make test
 ```
 
-To run the same formatting check as CI:
+To check formatting:
 
 ```bash
 stylua --check .
@@ -725,123 +720,10 @@ stylua --check .
 
 See [CONTRIBUTING.md](/CONTRIBUTING.md) for detailed guidelines.
 
-# Contributors
+# Credits
 
-Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/gptlang"><img src="https://avatars.githubusercontent.com/u/121417512?v=4?s=100" width="100px;" alt="gptlang"/><br /><sub><b>gptlang</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=gptlang" title="Code">💻</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=gptlang" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://productsway.com/"><img src="https://avatars.githubusercontent.com/u/870029?v=4?s=100" width="100px;" alt="Dung Duc Huynh (Kaka)"/><br /><sub><b>Dung Duc Huynh (Kaka)</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=jellydn" title="Code">💻</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=jellydn" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://qoobes.dev"><img src="https://avatars.githubusercontent.com/u/58834655?v=4?s=100" width="100px;" alt="Ahmed Haracic"/><br /><sub><b>Ahmed Haracic</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=qoobes" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://youtube.com/@ziontee113"><img src="https://avatars.githubusercontent.com/u/102876811?v=4?s=100" width="100px;" alt="Trí Thiện Nguyễn"/><br /><sub><b>Trí Thiện Nguyễn</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=ziontee113" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Cassius0924"><img src="https://avatars.githubusercontent.com/u/62874592?v=4?s=100" width="100px;" alt="He Zhizhou"/><br /><sub><b>He Zhizhou</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=Cassius0924" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://www.linkedin.com/in/guruprakashrajakkannu/"><img src="https://avatars.githubusercontent.com/u/9963717?v=4?s=100" width="100px;" alt="Guruprakash Rajakkannu"/><br /><sub><b>Guruprakash Rajakkannu</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=rguruprakash" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/kristofka"><img src="https://avatars.githubusercontent.com/u/140354?v=4?s=100" width="100px;" alt="kristofka"/><br /><sub><b>kristofka</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=kristofka" title="Code">💻</a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/PostCyberPunk"><img src="https://avatars.githubusercontent.com/u/134976996?v=4?s=100" width="100px;" alt="PostCyberPunk"/><br /><sub><b>PostCyberPunk</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=PostCyberPunk" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ktns"><img src="https://avatars.githubusercontent.com/u/1302759?v=4?s=100" width="100px;" alt="Katsuhiko Nishimra"/><br /><sub><b>Katsuhiko Nishimra</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=ktns" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/errnoh"><img src="https://avatars.githubusercontent.com/u/373946?v=4?s=100" width="100px;" alt="Erno Hopearuoho"/><br /><sub><b>Erno Hopearuoho</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=errnoh" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/shaungarwood"><img src="https://avatars.githubusercontent.com/u/4156525?v=4?s=100" width="100px;" alt="Shaun Garwood"/><br /><sub><b>Shaun Garwood</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=shaungarwood" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/neutrinoA4"><img src="https://avatars.githubusercontent.com/u/122616073?v=4?s=100" width="100px;" alt="neutrinoA4"/><br /><sub><b>neutrinoA4</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=neutrinoA4" title="Code">💻</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=neutrinoA4" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/banjocat"><img src="https://avatars.githubusercontent.com/u/3247309?v=4?s=100" width="100px;" alt="Jack Muratore"/><br /><sub><b>Jack Muratore</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=banjocat" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/AdrielVelazquez"><img src="https://avatars.githubusercontent.com/u/3443378?v=4?s=100" width="100px;" alt="Adriel Velazquez"/><br /><sub><b>Adriel Velazquez</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=AdrielVelazquez" title="Code">💻</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=AdrielVelazquez" title="Documentation">📖</a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/deathbeam"><img src="https://avatars.githubusercontent.com/u/5115805?v=4?s=100" width="100px;" alt="Tomas Slusny"/><br /><sub><b>Tomas Slusny</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=deathbeam" title="Code">💻</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=deathbeam" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="http://nisalvd.netlify.com/"><img src="https://avatars.githubusercontent.com/u/30633436?v=4?s=100" width="100px;" alt="Nisal"/><br /><sub><b>Nisal</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=nisalVD" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="http://www.gaardhus.dk"><img src="https://avatars.githubusercontent.com/u/46934916?v=4?s=100" width="100px;" alt="Tobias Gårdhus"/><br /><sub><b>Tobias Gårdhus</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=gaardhus" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://www.patreon.com/PetrDlouhy"><img src="https://avatars.githubusercontent.com/u/156755?v=4?s=100" width="100px;" alt="Petr Dlouhý"/><br /><sub><b>Petr Dlouhý</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=PetrDlouhy" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="http://www.dylanmadisetti.com"><img src="https://avatars.githubusercontent.com/u/2689338?v=4?s=100" width="100px;" alt="Dylan Madisetti"/><br /><sub><b>Dylan Madisetti</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=dmadisetti" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/aweis89"><img src="https://avatars.githubusercontent.com/u/5186956?v=4?s=100" width="100px;" alt="Aaron Weisberg"/><br /><sub><b>Aaron Weisberg</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=aweis89" title="Code">💻</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=aweis89" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/tlacuilose"><img src="https://avatars.githubusercontent.com/u/65783495?v=4?s=100" width="100px;" alt="Jose Tlacuilo"/><br /><sub><b>Jose Tlacuilo</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=tlacuilose" title="Code">💻</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=tlacuilose" title="Documentation">📖</a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="http://kevintraver.com"><img src="https://avatars.githubusercontent.com/u/196406?v=4?s=100" width="100px;" alt="Kevin Traver"/><br /><sub><b>Kevin Traver</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=kevintraver" title="Code">💻</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=kevintraver" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/D7ry"><img src="https://avatars.githubusercontent.com/u/92609548?v=4?s=100" width="100px;" alt="dTry"/><br /><sub><b>dTry</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=D7ry" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://blog.ornew.io"><img src="https://avatars.githubusercontent.com/u/19766770?v=4?s=100" width="100px;" alt="Arata Furukawa"/><br /><sub><b>Arata Furukawa</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=ornew" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/lingjie00"><img src="https://avatars.githubusercontent.com/u/64540764?v=4?s=100" width="100px;" alt="Ling"/><br /><sub><b>Ling</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=lingjie00" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/frolvanya"><img src="https://avatars.githubusercontent.com/u/59515280?v=4?s=100" width="100px;" alt="Ivan Frolov"/><br /><sub><b>Ivan Frolov</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=frolvanya" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="http://www.folkelemaitre.com"><img src="https://avatars.githubusercontent.com/u/292349?v=4?s=100" width="100px;" alt="Folke Lemaitre"/><br /><sub><b>Folke Lemaitre</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=folke" title="Code">💻</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=folke" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/GitMurf"><img src="https://avatars.githubusercontent.com/u/64155612?v=4?s=100" width="100px;" alt="GitMurf"/><br /><sub><b>GitMurf</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=GitMurf" title="Code">💻</a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="http://dimalip.in"><img src="https://avatars.githubusercontent.com/u/6877858?v=4?s=100" width="100px;" alt="Dmitrii Lipin"/><br /><sub><b>Dmitrii Lipin</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=festeh" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://nvimer.org"><img src="https://avatars.githubusercontent.com/u/41784264?v=4?s=100" width="100px;" alt="jinzhongjia"/><br /><sub><b>jinzhongjia</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=jinzhongjia" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/guill"><img src="https://avatars.githubusercontent.com/u/3157454?v=4?s=100" width="100px;" alt="guill"/><br /><sub><b>guill</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=guill" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sjonpaulbrown-cc"><img src="https://avatars.githubusercontent.com/u/81941908?v=4?s=100" width="100px;" alt="Sjon-Paul Brown"/><br /><sub><b>Sjon-Paul Brown</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=sjonpaulbrown-cc" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/renxzen"><img src="https://avatars.githubusercontent.com/u/13023797?v=4?s=100" width="100px;" alt="Renzo Mondragón"/><br /><sub><b>Renzo Mondragón</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=renxzen" title="Code">💻</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=renxzen" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/fjchen7"><img src="https://avatars.githubusercontent.com/u/10106636?v=4?s=100" width="100px;" alt="fjchen7"/><br /><sub><b>fjchen7</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=fjchen7" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/radwo"><img src="https://avatars.githubusercontent.com/u/184065?v=4?s=100" width="100px;" alt="Radosław Woźniak"/><br /><sub><b>Radosław Woźniak</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=radwo" title="Code">💻</a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JakubPecenka"><img src="https://avatars.githubusercontent.com/u/87969308?v=4?s=100" width="100px;" alt="JakubPecenka"/><br /><sub><b>JakubPecenka</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=JakubPecenka" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/thomastthai"><img src="https://avatars.githubusercontent.com/u/16532581?v=4?s=100" width="100px;" alt="thomastthai"/><br /><sub><b>thomastthai</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=thomastthai" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://lisk.in/"><img src="https://avatars.githubusercontent.com/u/300342?v=4?s=100" width="100px;" alt="Tomáš Janoušek"/><br /><sub><b>Tomáš Janoušek</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=liskin" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/Moriango"><img src="https://avatars.githubusercontent.com/u/43554061?v=4?s=100" width="100px;" alt="Toddneal Stallworth"/><br /><sub><b>Toddneal Stallworth</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=Moriango" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/taketwo"><img src="https://avatars.githubusercontent.com/u/1241736?v=4?s=100" width="100px;" alt="Sergey Alexandrov"/><br /><sub><b>Sergey Alexandrov</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=taketwo" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/lemeb"><img src="https://avatars.githubusercontent.com/u/7331643?v=4?s=100" width="100px;" alt="Léopold Mebazaa"/><br /><sub><b>Léopold Mebazaa</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=lemeb" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://atko.space"><img src="https://avatars.githubusercontent.com/u/14937572?v=4?s=100" width="100px;" alt="JunKi Jin"/><br /><sub><b>JunKi Jin</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=atkodev" title="Code">💻</a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/abdennourzahaf"><img src="https://avatars.githubusercontent.com/u/62243290?v=4?s=100" width="100px;" alt="abdennourzahaf"/><br /><sub><b>abdennourzahaf</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=abdennourzahaf" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/josiahdenton"><img src="https://avatars.githubusercontent.com/u/44758384?v=4?s=100" width="100px;" alt="Josiah"/><br /><sub><b>Josiah</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=josiahdenton" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/tku137"><img src="https://avatars.githubusercontent.com/u/3052212?v=4?s=100" width="100px;" alt="Tony Fischer"/><br /><sub><b>Tony Fischer</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=tku137" title="Code">💻</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=tku137" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://qiita.com/program3152019"><img src="https://avatars.githubusercontent.com/u/64008205?v=4?s=100" width="100px;" alt="Kohei Wada"/><br /><sub><b>Kohei Wada</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=Kohei-Wada" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://zags.dev"><img src="https://avatars.githubusercontent.com/u/79172513?v=4?s=100" width="100px;" alt="Sebastian Yaghoubi"/><br /><sub><b>Sebastian Yaghoubi</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=syaghoubi00" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/johncming"><img src="https://avatars.githubusercontent.com/u/11719334?v=4?s=100" width="100px;" alt="johncming"/><br /><sub><b>johncming</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=johncming" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/dzonatan"><img src="https://avatars.githubusercontent.com/u/5166666?v=4?s=100" width="100px;" alt="Rokas Brazdžionis"/><br /><sub><b>Rokas Brazdžionis</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=dzonatan" title="Code">💻</a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/unlimitedsola"><img src="https://avatars.githubusercontent.com/u/3632663?v=4?s=100" width="100px;" alt="Sola"/><br /><sub><b>Sola</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=unlimitedsola" title="Documentation">📖</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=unlimitedsola" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ThisIsMani"><img src="https://avatars.githubusercontent.com/u/84711804?v=4?s=100" width="100px;" alt="Mani Chandra"/><br /><sub><b>Mani Chandra</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=ThisIsMani" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://nischalbasuti.github.io/"><img src="https://avatars.githubusercontent.com/u/14853910?v=4?s=100" width="100px;" alt="Nischal Basuti"/><br /><sub><b>Nischal Basuti</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=nischalbasuti" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://teoljungberg.com"><img src="https://avatars.githubusercontent.com/u/810650?v=4?s=100" width="100px;" alt="Teo Ljungberg"/><br /><sub><b>Teo Ljungberg</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=teoljungberg" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/JPricey"><img src="https://avatars.githubusercontent.com/u/4826348?v=4?s=100" width="100px;" alt="Joe Price"/><br /><sub><b>Joe Price</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=JPricey" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://ouuan.moe/about"><img src="https://avatars.githubusercontent.com/u/30581822?v=4?s=100" width="100px;" alt="Yufan You"/><br /><sub><b>Yufan You</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=ouuan" title="Documentation">📖</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=ouuan" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://m4dd0c.netlify.app"><img src="https://avatars.githubusercontent.com/u/77256586?v=4?s=100" width="100px;" alt="Manish Kumar"/><br /><sub><b>Manish Kumar</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=m4dd0c" title="Code">💻</a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://www.azdanov.dev"><img src="https://avatars.githubusercontent.com/u/6123841?v=4?s=100" width="100px;" alt="Anton Ždanov"/><br /><sub><b>Anton Ždanov</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=azdanov" title="Documentation">📖</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=azdanov" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="http://fredrikaverpil.github.io"><img src="https://avatars.githubusercontent.com/u/994357?v=4?s=100" width="100px;" alt="Fredrik Averpil"/><br /><sub><b>Fredrik Averpil</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=fredrikaverpil" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://a14n.net"><img src="https://avatars.githubusercontent.com/u/509703?v=4?s=100" width="100px;" alt="Aaron D Borden"/><br /><sub><b>Aaron D Borden</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=adborden" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/AtifChy"><img src="https://avatars.githubusercontent.com/u/42291930?v=4?s=100" width="100px;" alt="Md. Iftakhar Awal Chowdhury"/><br /><sub><b>Md. Iftakhar Awal Chowdhury</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=AtifChy" title="Code">💻</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=AtifChy" title="Documentation">📖</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/danilohorta"><img src="https://avatars.githubusercontent.com/u/214497460?v=4?s=100" width="100px;" alt="Danilo Horta"/><br /><sub><b>Danilo Horta</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=danilohorta" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://mihamina.rktmb.org"><img src="https://avatars.githubusercontent.com/u/488088?v=4?s=100" width="100px;" alt="Mihamina Rakotomandimby"/><br /><sub><b>Mihamina Rakotomandimby</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=rakotomandimby" title="Documentation">📖</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=rakotomandimby" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="http://ajmalshajahan.me"><img src="https://avatars.githubusercontent.com/u/23806715?v=4?s=100" width="100px;" alt="Ajmal S"/><br /><sub><b>Ajmal S</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=AjmalShajahan" title="Code">💻</a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/samiulsami"><img src="https://avatars.githubusercontent.com/u/33352407?v=4?s=100" width="100px;" alt="Samiul Islam"/><br /><sub><b>Samiul Islam</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=samiulsami" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://ruicsh.github.io"><img src="https://avatars.githubusercontent.com/u/8294038?v=4?s=100" width="100px;" alt="Rui Costa"/><br /><sub><b>Rui Costa</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=ruicsh" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/ctchen222"><img src="https://avatars.githubusercontent.com/u/49014608?v=4?s=100" width="100px;" alt="CTCHEN"/><br /><sub><b>CTCHEN</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=ctchen222" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/towoe"><img src="https://avatars.githubusercontent.com/u/8666134?v=4?s=100" width="100px;" alt="Tobias Wölfel"/><br /><sub><b>Tobias Wölfel</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=towoe" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/garcia5"><img src="https://avatars.githubusercontent.com/u/21695295?v=4?s=100" width="100px;" alt="Alexander Garcia"/><br /><sub><b>Alexander Garcia</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=garcia5" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/kharandziuk"><img src="https://avatars.githubusercontent.com/u/3404755?v=4?s=100" width="100px;" alt="Max Kharandziuk"/><br /><sub><b>Max Kharandziuk</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=kharandziuk" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/pxwg"><img src="https://avatars.githubusercontent.com/u/149765160?v=4?s=100" width="100px;" alt="Xinyu Xiang"/><br /><sub><b>Xinyu Xiang</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=pxwg" title="Code">💻</a></td>
-    </tr>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/junqizhang"><img src="https://avatars.githubusercontent.com/u/22600124?v=4?s=100" width="100px;" alt="junqizhang"/><br /><sub><b>junqizhang</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=junqizhang" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="http://card.calumhub.xyz"><img src="https://avatars.githubusercontent.com/u/89159592?v=4?s=100" width="100px;" alt="Calum Lynch"/><br /><sub><b>Calum Lynch</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=Tlunch" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/sirjls"><img src="https://avatars.githubusercontent.com/u/270346599?v=4?s=100" width="100px;" alt="sirjls"/><br /><sub><b>sirjls</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=sirjls" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/kolchurinvv"><img src="https://avatars.githubusercontent.com/u/18503099?v=4?s=100" width="100px;" alt="Vladimir Kolchurin"/><br /><sub><b>Vladimir Kolchurin</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=kolchurinvv" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://rosesecurity.dev"><img src="https://avatars.githubusercontent.com/u/72598486?v=4?s=100" width="100px;" alt="RoseSecurity"/><br /><sub><b>RoseSecurity</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=RoseSecurity" title="Documentation">📖</a> <a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=RoseSecurity" title="Code">💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/abhr-0"><img src="https://avatars.githubusercontent.com/u/121384410?v=4?s=100" width="100px;" alt="Abhraneel Mukherjee"/><br /><sub><b>Abhraneel Mukherjee</b></sub></a><br /><a href="https://github.com/minuet-chat/minuet-chat.nvim/commits?author=abhr-0" title="Code">💻</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind are welcome!
+minuet-chat.nvim is a fork of [CopilotChat.nvim](https://github.com/CopilotC-Nvim/CopilotChat.nvim), reworked to use any OpenAI-compatible API instead of GitHub Copilot. Thanks to its authors and contributors for the original work. Both projects are licensed under the [GPL-3.0](LICENSE).
 
 # Stargazers
 
-[![Stargazers over time](https://starchart.cc/minuet-chat/minuet-chat.nvim.svg?variant=adaptive)](https://starchart.cc/minuet-chat/minuet-chat.nvim)
+[![Stargazers over time](https://starchart.cc/antraxbr666/minuet-chat.nvim.svg?variant=adaptive)](https://starchart.cc/antraxbr666/minuet-chat.nvim)

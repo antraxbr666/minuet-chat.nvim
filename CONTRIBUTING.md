@@ -3,7 +3,7 @@
 ## Where do I go from here?
 
 If you've noticed a bug or have a feature request, make sure to check our
-[Issues](https://github.com/CopilotC-Nvim/minuet-chat.nvim/issues) page to see
+[Issues](https://github.com/antraxbr666/minuet-chat.nvim/issues) page to see
 if someone else in the community has already created a ticket. If not, go ahead
 and make one!
 
@@ -23,7 +23,7 @@ Make sure to check [Structure](#Structure) first to understand the project struc
 ## Implement your fix or feature
 
 At this point, you're ready to make your changes! Feel free to ask for help;
-everyone is a beginner at first. You can also ask in our Discord server, see [README](/README.md).
+everyone is a beginner at first. Open an [issue](https://github.com/antraxbr666/minuet-chat.nvim/issues) if you get stuck.
 
 ## Make a Pull Request
 
@@ -31,7 +31,7 @@ At this point, you should switch back to your main branch and make sure it's
 up to date with minuet-chat.nvim's main branch:
 
 ```bash
-git remote add upstream git@github.com:CopilotC-Nvim/minuet-chat.nvim.git
+git remote add upstream git@github.com:antraxbr666/minuet-chat.nvim.git
 git checkout main
 git pull upstream main
 ```
@@ -48,7 +48,7 @@ Go to the minuet-chat.nvim in your GitHub account, select your branch, and click
 
 ## Structure
 
-![structure.drawio](https://github.com/CopilotC-Nvim/minuet-chat.nvim/assets/5115805/e7517736-0152-47a3-8cb9-36a5dffcb6cc)
+The architecture diagram is in [structure.drawio](/structure.drawio). Open it with [draw.io](https://app.diagrams.net/).
 
 ### Core
 
@@ -56,8 +56,8 @@ Go to the minuet-chat.nvim in your GitHub account, select your branch, and click
   (`setup()`), chat lifecycle (`ask()`, `open()`, `close()`, `toggle()`,
   `reset()`), save/load, and sticky prompt processing.
 
-- [client.lua](/lua/MinuetChat/client.lua): Copilot API client. Handles
-  authentication, model listing, streaming requests, and tool call execution.
+- [client.lua](/lua/MinuetChat/client.lua): OpenAI-compatible API client.
+  Handles request headers, model listing, streaming requests, and tool call execution.
 
 - [config.lua](/lua/MinuetChat/config.lua): Default configuration schema.
 

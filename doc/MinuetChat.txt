@@ -1,65 +1,65 @@
 *MinuetChat.txt*
-                                For NVIM v0.8.0    Last change: 2026 August 30
+                              For NVIM v0.10.0    Last change: 2026 October 08
 
 ==============================================================================
-Table of Contents                              *MinuetChat-table-of-contents*
+Table of Contents                               *MinuetChat-table-of-contents*
 
-1. Installation                                     |MinuetChat-installation|
-  - Requirements                                    |MinuetChat-requirements|
-  - Optional Dependencies                  |MinuetChat-optional-dependencies|
-  - Integration with pickers            |MinuetChat-integration-with-pickers|
-  - lazy.nvim                                          |MinuetChat-lazy.nvim|
-  - vim-plug                                            |MinuetChat-vim-plug|
-2. Core Concepts                                   |MinuetChat-core-concepts|
-3. Usage                                                   |MinuetChat-usage|
-  - Commands                                            |MinuetChat-commands|
-  - Chat Key Mappings                          |MinuetChat-chat-key-mappings|
-  - Predefined Functions                    |MinuetChat-predefined-functions|
-  - Predefined Prompts                        |MinuetChat-predefined-prompts|
-  - Resource Usage                                |MinuetChat-resource-usage|
-  - Tool Usage                                        |MinuetChat-tool-usage|
-4. Configuration                                   |MinuetChat-configuration|
-  - Quick Setup                                      |MinuetChat-quick-setup|
-  - Window & Appearance                      |MinuetChat-window-&-appearance|
-  - Buffer Behavior                              |MinuetChat-buffer-behavior|
-  - Highlights                                        |MinuetChat-highlights|
-  - Prompts                                              |MinuetChat-prompts|
-  - Functions                                          |MinuetChat-functions|
-  - Providers                                          |MinuetChat-providers|
-5. API Reference                                   |MinuetChat-api-reference|
-  - Core                                                    |MinuetChat-core|
-  - Chat Window                                      |MinuetChat-chat-window|
-  - Prompt parser                                  |MinuetChat-prompt-parser|
-  - Example Usage                                  |MinuetChat-example-usage|
-6. Development                                       |MinuetChat-development|
-  - Setup                                                  |MinuetChat-setup|
-  - Contributing                                    |MinuetChat-contributing|
-7. Contributors                                     |MinuetChat-contributors|
-8. Stargazers                                         |MinuetChat-stargazers|
-9. Links                                                   |MinuetChat-links|
+1. Installation                                      |MinuetChat-installation|
+  - Requirements                        |MinuetChat-installation-requirements|
+  - Optional Dependencies      |MinuetChat-installation-optional-dependencies|
+  - Integration with pickers|MinuetChat-installation-integration-with-pickers|
+  - lazy.nvim                              |MinuetChat-installation-lazy.nvim|
+  - LazyVim                                  |MinuetChat-installation-lazyvim|
+  - vim-plug                                |MinuetChat-installation-vim-plug|
+2. Core Concepts                                    |MinuetChat-core-concepts|
+3. Usage                                                    |MinuetChat-usage|
+  - Commands                                       |MinuetChat-usage-commands|
+  - Chat Key Mappings                     |MinuetChat-usage-chat-key-mappings|
+  - Predefined Functions               |MinuetChat-usage-predefined-functions|
+  - Predefined Prompts                   |MinuetChat-usage-predefined-prompts|
+  - Resource Usage                           |MinuetChat-usage-resource-usage|
+  - Tool Usage                                   |MinuetChat-usage-tool-usage|
+4. Configuration                                    |MinuetChat-configuration|
+  - Quick Setup                         |MinuetChat-configuration-quick-setup|
+  - Window & Appearance         |MinuetChat-configuration-window-&-appearance|
+  - Buffer Behavior                 |MinuetChat-configuration-buffer-behavior|
+  - Highlights                           |MinuetChat-configuration-highlights|
+  - Prompts                                 |MinuetChat-configuration-prompts|
+  - Functions                             |MinuetChat-configuration-functions|
+  - Providers                             |MinuetChat-configuration-providers|
+5. API Reference                                    |MinuetChat-api-reference|
+  - Core                                       |MinuetChat-api-reference-core|
+  - Chat Window                         |MinuetChat-api-reference-chat-window|
+  - Prompt parser                     |MinuetChat-api-reference-prompt-parser|
+  - Example Usage                     |MinuetChat-api-reference-example-usage|
+6. Development                                        |MinuetChat-development|
+  - Setup                                       |MinuetChat-development-setup|
+  - Contributing                         |MinuetChat-development-contributing|
+7. Credits                                                |MinuetChat-credits|
+8. Stargazers                                          |MinuetChat-stargazers|
+9. Links                                                    |MinuetChat-links|
 
-minuet-chat.nvim brings GitHub Copilot Chat capabilities directly into Neovim
-with a focus on transparency and user control.
+minuet-chat.nvim brings AI chat capabilities directly into Neovim with support
+for any OpenAI-compatible API provider.
 
-- 🤖 **Multiple AI Models** - GitHub Copilot (including GPT-4o, Gemini 2.5 Pro, Claude 4 Sonnet, Claude 3.7 Sonnet, Claude 3.5 Sonnet, o3-mini, o4-mini) + custom providers (Ollama, Mistral.ai). The exact list of available models depends on your GitHub Copilot settings <https://github.com/settings/copilot/features> and the models provided by GitHub’s API.
+- 🤖 **Multiple AI Providers** - Works with any OpenAI-compatible API (OpenAI, Ollama, Mistral.ai, local models, etc.) - just configure your API key and base URL
 - 🔧 **Tool Calling** - LLM can call workspace functions (file reading, git operations, search) with manual approval or automatic execution for trusted tools
 - 🔒 **Privacy First** - Only shares what you explicitly request - no background data collection
 - 📝 **Interactive Chat** - Interactive UI with completion, diffs, and quickfix integration
 - 🎯 **Smart Prompts** - Composable templates and sticky prompts for consistent context
 - ⚡ **Token Efficient** - Resource replacement prevents duplicate context, history management via tiktoken counting
 - 🔗 **Scriptable** - Comprehensive Lua API for automation and headless mode operation
-- 🔌 **Extensible** - Custom functions <https://github.com/CopilotC-Nvim/minuet-chat.nvim/discussions/categories/functions> and providers <https://github.com/CopilotC-Nvim/minuet-chat.nvim/discussions/categories/providers>, plus integrations like mcphub.nvim <https://github.com/ravitemer/mcphub.nvim>
+- 🔌 **Extensible** - Custom functions |MinuetChat-configuration-functions| and |MinuetChat-configuration-providers|, plus integrations like mcphub.nvim <https://github.com/ravitemer/mcphub.nvim>
 
 
 ==============================================================================
-1. Installation                                     *MinuetChat-installation*
+1. Installation                                      *MinuetChat-installation*
 
 
-REQUIREMENTS                                        *MinuetChat-requirements*
+REQUIREMENTS                            *MinuetChat-installation-requirements*
 
 - Neovim 0.10.0+ <https://neovim.io/>
 - curl 8.0.0+ <https://curl.se/>
-- Copilot chat in the IDE <https://github.com/settings/copilot> enabled in GitHub settings
 - plenary.nvim <https://github.com/nvim-lua/plenary.nvim>
 
 
@@ -68,7 +68,7 @@ REQUIREMENTS                                        *MinuetChat-requirements*
   autocompletion experience, also add `popup` to your `completeopt` (even on
   Neovim 0.11.0+).
 
-OPTIONAL DEPENDENCIES                      *MinuetChat-optional-dependencies*
+OPTIONAL DEPENDENCIES          *MinuetChat-installation-optional-dependencies*
 
 - tiktoken_core <https://github.com/gptlang/lua-tiktoken> - For accurate token counting
     - Arch Linux: Install `luajit-tiktoken-bin` <https://aur.archlinux.org/packages/luajit-tiktoken-bin> or `lua51-tiktoken-bin` <https://aur.archlinux.org/packages/lua51-tiktoken-bin> from AUR
@@ -79,7 +79,7 @@ OPTIONAL DEPENDENCIES                      *MinuetChat-optional-dependencies*
 - lynx <https://lynx.invisible-island.net/> - For improved URL context features
 
 
-INTEGRATION WITH PICKERS                *MinuetChat-integration-with-pickers*
+INTEGRATION WITH PICKERS    *MinuetChat-installation-integration-with-pickers*
 
 For various plugin pickers to work correctly, you need to replace
 `vim.ui.select` with your desired picker (as the default `vim.ui.select` is
@@ -91,12 +91,12 @@ very basic). Here are some examples:
 - mini.pick <https://github.com/echasnovski/mini.pick/blob/main/lua/mini/pick.lua#L1229> - set `vim.ui.select = require('mini.pick').ui_select`
 
 
-LAZY.NVIM                                              *MinuetChat-lazy.nvim*
+LAZY.NVIM                                  *MinuetChat-installation-lazy.nvim*
 
 >lua
     return {
       {
-        "CopilotC-Nvim/minuet-chat.nvim",
+        "antraxbr666/minuet-chat.nvim",
         dependencies = {
           { "nvim-lua/plenary.nvim", branch = "master" },
         },
@@ -109,14 +109,91 @@ LAZY.NVIM                                              *MinuetChat-lazy.nvim*
 <
 
 
-VIM-PLUG                                                *MinuetChat-vim-plug*
+LAZYVIM                                      *MinuetChat-installation-lazyvim*
+
+Create `lua/plugins/minuet-chat.lua`. The plugin is lazy-loaded on its commands
+and keymaps:
+
+>lua
+    -- lua/plugins/minuet-chat.lua
+    return {
+      {
+        "antraxbr666/minuet-chat.nvim",
+        main = "MinuetChat",
+        build = "make tiktoken",
+        cmd = {
+          "MinuetChat",
+          "MinuetChatOpen",
+          "MinuetChatClose",
+          "MinuetChatToggle",
+          "MinuetChatStop",
+          "MinuetChatReset",
+          "MinuetChatModels",
+          "MinuetChatPrompts",
+          "MinuetChatSave",
+          "MinuetChatLoad",
+          "MinuetChatExplain",
+          "MinuetChatReview",
+          "MinuetChatFix",
+          "MinuetChatOptimize",
+          "MinuetChatDocs",
+          "MinuetChatTests",
+          "MinuetChatCommit",
+        },
+        dependencies = {
+          { "nvim-lua/plenary.nvim", branch = "master" },
+        },
+        opts = {
+          -- See Configuration section for options
+        },
+        keys = {
+          { "<leader>ac", "<cmd>MinuetChatToggle<cr>", mode = { "n", "v" }, desc = "Minuet Chat" },
+          { "<leader>am", "<cmd>MinuetChatModels<cr>", desc = "Minuet Models" },
+        },
+      },
+    }
+<
+
+
+  [!NOTE] Prompt commands such as `:MinuetChatDocs` are created by `setup()`.
+  List them in `cmd` so they work before the plugin is loaded.
+
+WHICH-KEY GROUP ~
+
+Without a group, which-key shows `<leader>a` as `+2 keymaps`. To show a named
+group with an icon, register it in a separate file,
+`lua/plugins/which-key.lua`:
+
+>lua
+    -- lua/plugins/which-key.lua
+    return {
+      "folke/which-key.nvim",
+      opts = {
+        spec = {
+          { "<leader>a", group = "Minuet Chat", icon = { icon = "🤖", color = "purple" } },
+          { "<leader>ac", icon = { icon = "🤖", color = "purple" } },
+          { "<leader>am", icon = { icon = "󰚩", color = "cyan" } },
+        },
+      },
+    }
+<
+
+LazyVim merges `spec` (`opts_extend = { "spec" }`), so the default groups are
+kept. Restart Neovim to apply.
+
+
+  [!TIP] Some terminals render the 🤖 emoji two columns wide, which misaligns
+  the menu. If that happens, use the Nerd Font icon `󰚩` (`nf-md-robot`)
+  instead.
+
+VIM-PLUG                                    *MinuetChat-installation-vim-plug*
 
 >vim
     call plug#begin()
     Plug 'nvim-lua/plenary.nvim'
-    Plug 'CopilotC-Nvim/minuet-chat.nvim'
+    Plug 'antraxbr666/minuet-chat.nvim'
     call plug#end()
-    
+
     lua << EOF
     require("MinuetChat").setup()
     EOF
@@ -124,7 +201,7 @@ VIM-PLUG                                                *MinuetChat-vim-plug*
 
 
 ==============================================================================
-2. Core Concepts                                   *MinuetChat-core-concepts*
+2. Core Concepts                                    *MinuetChat-core-concepts*
 
 - **Resources** (`#<name>`) - Add specific content (files, git diffs, URLs) to your prompt
 - **Tools** (`@<name>`) - Give LLM access to functions it can call during the chat, with manual approval by default
@@ -137,13 +214,13 @@ VIM-PLUG                                                *MinuetChat-vim-plug*
   auto-complete. This is the easiest way to discover what’s available!
 
 ==============================================================================
-3. Usage                                                   *MinuetChat-usage*
+3. Usage                                                    *MinuetChat-usage*
 
 
-COMMANDS                                                *MinuetChat-commands*
+COMMANDS                                           *MinuetChat-usage-commands*
 
-  Command                    Description
-  -------------------------- -------------------------------
+  Command                   Description
+  ------------------------- -------------------------------
   :MinuetChat <input>?      Open chat with optional input
   :MinuetChatOpen           Open chat window
   :MinuetChatClose          Close chat window
@@ -156,7 +233,7 @@ COMMANDS                                                *MinuetChat-commands*
   :MinuetChatModels         View/select available models
   :MinuetChat<PromptName>   Use specific prompt template
 
-CHAT KEY MAPPINGS                              *MinuetChat-chat-key-mappings*
+CHAT KEY MAPPINGS                         *MinuetChat-usage-chat-key-mappings*
 
   -------------------------------------------------------------------------
   Insert   Normal   Action
@@ -199,26 +276,26 @@ to see available options. This is the fastest way to work!
   <
   Or customize MinuetChat keymaps in your config.
 
-PREDEFINED FUNCTIONS                        *MinuetChat-predefined-functions*
+PREDEFINED FUNCTIONS                   *MinuetChat-usage-predefined-functions*
 
-All predefined functions belong to the `copilot` group.
+All predefined functions belong to the `minuet` group.
 
   ---------------------------------------------------------------------------------
   Function    Manual   Description                Available Options
-              #...                                
+              #...
   ----------- -------- -------------------------- ---------------------------------
-  bash        No       Executes a bash command    Tool-only (use @copilot)
-                       and returns output         
+  bash        No       Executes a bash command    Tool-only (use @minuet)
+                       and returns output
 
   buffer      Yes      Retrieves content from     active, visible, listed,
                        buffer(s) with diagnostics quickfix, buffer number, or
                                                   filename
 
   clipboard   Yes      Provides access to system  No options
-                       clipboard content          
+                       clipboard content
 
-  edit        No       Applies a unified diff to  Tool-only (use @copilot)
-                       a file                     
+  edit        No       Applies a unified diff to  Tool-only (use @minuet)
+                       a file
 
   file        Yes      Reads content from a       Any file path (use <Tab> for
                        specified file path        completion)
@@ -227,23 +304,23 @@ All predefined functions belong to the `copilot` group.
                        information                commit SHA
 
   glob        Yes      Lists filenames matching a Any glob pattern (default: **/*)
-                       pattern in workspace       
+                       pattern in workspace
 
   grep        Yes      Searches for a pattern     Any search pattern
-                       across files in workspace  
+                       across files in workspace
 
   selection   Yes      Includes the current       No options
-                       visual selection with      
-                       diagnostics                
+                       visual selection with
+                       diagnostics
 
   url         Yes      Fetches content from a     Any HTTPS URL
-                       specified URL              
+                       specified URL
   ---------------------------------------------------------------------------------
 - **#<function>** - Embeds output directly in your message (e.g., `#buffer:listed`, `#file:src/main.lua`)
-- **@<function/group>** - Makes function(s) available for LLM to call when needed (e.g., `@copilot`, `@file`)
+- **@<function/group>** - Makes function(s) available for LLM to call when needed (e.g., `@minuet`, `@file`)
 
 
-PREDEFINED PROMPTS                            *MinuetChat-predefined-prompts*
+PREDEFINED PROMPTS                       *MinuetChat-usage-predefined-prompts*
 
   -------------------------------------------------------------------------
   Prompt     Description
@@ -264,73 +341,73 @@ PREDEFINED PROMPTS                            *MinuetChat-predefined-prompts*
              changes
   -------------------------------------------------------------------------
 
-RESOURCE USAGE                                    *MinuetChat-resource-usage*
+RESOURCE USAGE                               *MinuetChat-usage-resource-usage*
 
 >markdown
     # Current buffer
-    
+
     #buffer:active
-    
+
     # All open buffers (replaces old #buffers)
-    
+
     #buffer:listed
-    
+
     # All visible buffers
-    
+
     #buffer:visible
-    
+
     # Specific file
-    
+
     #file:src/main.lua
-    
+
     # Git changes
-    
+
     #gitdiff:staged
-    
+
     # URL content
-    
+
     #url:https://example.com/docs
 <
 
 
-TOOL USAGE                                            *MinuetChat-tool-usage*
+TOOL USAGE                                       *MinuetChat-usage-tool-usage*
 
-When you use `@copilot`, the LLM can call functions from the `copilot` group
-such as `bash`, `edit`, `file`, `glob`, `grep`, and `gitdiff`.
+When you use `@minuet`, the LLM can call functions from the `minuet` group such
+as `bash`, `edit`, `file`, `glob`, `grep`, and `gitdiff`.
 
 >markdown
     # Give LLM access to workspace tools
-    
-    @copilot What files are in this project?
-    
+
+    @minuet What files are in this project?
+
     # Sticky context with tools
-    
+
     > #buffer:listed
-    > @copilot
+    > @minuet
     > Refactor the authentication code
 <
 
 By default, tool calls require manual approval. Configure `trusted_tools` to
-automatically run specific tools (see |MinuetChat-functions|).
+automatically run specific tools (see |MinuetChat-configuration-functions|).
 
 
   [!WARNING] `trusted_tools = true` allows the model to run every enabled tool
   without asking. Only use it if you fully trust the tool set and workspace.
 
 ==============================================================================
-4. Configuration                                   *MinuetChat-configuration*
+4. Configuration                                    *MinuetChat-configuration*
 
 For all available configuration options, see `lua/MinuetChat/config.lua`
 <lua/MinuetChat/config.lua>.
 
 
-QUICK SETUP                                          *MinuetChat-quick-setup*
+QUICK SETUP                             *MinuetChat-configuration-quick-setup*
 
 Most users only need to configure a few options:
 
 >lua
     {
-      model = 'gpt-5-mini',        -- AI model to use
+      model = 'gpt-6-luna',        -- AI model to use
       temperature = 0.1,           -- Lower = focused, higher = creative
       trusted_tools = nil,         -- Require approval for all tool calls
       window = {
@@ -342,7 +419,7 @@ Most users only need to configure a few options:
 <
 
 
-WINDOW & APPEARANCE                          *MinuetChat-window-&-appearance*
+WINDOW & APPEARANCE             *MinuetChat-configuration-window-&-appearance*
 
 >lua
     {
@@ -354,13 +431,13 @@ WINDOW & APPEARANCE                          *MinuetChat-window-&-appearance*
         title = '🤖 AI Assistant',
         zindex = 100, -- Ensure window stays on top
       },
-    
+
       headers = {
         user = '👤 You',
-        assistant = '🤖 Copilot',
+        assistant = '🤖 Minuet',
         tool = '🔧 Tool',
       },
-    
+
       separator = '━━',
       auto_fold = true, -- Automatically folds non-assistant messages
     }
@@ -369,7 +446,7 @@ WINDOW & APPEARANCE                          *MinuetChat-window-&-appearance*
 `window.layout` also supports `'replace'` to reuse the current window.
 
 
-BUFFER BEHAVIOR                                  *MinuetChat-buffer-behavior*
+BUFFER BEHAVIOR                     *MinuetChat-configuration-buffer-behavior*
 
 >lua
     -- Auto-command to customize chat buffer behavior
@@ -384,7 +461,7 @@ BUFFER BEHAVIOR                                  *MinuetChat-buffer-behavior*
 <
 
 
-HIGHLIGHTS                                            *MinuetChat-highlights*
+HIGHLIGHTS                               *MinuetChat-configuration-highlights*
 
 You can customize colors by setting highlight groups in your config:
 
@@ -394,7 +471,7 @@ You can customize colors by setting highlight groups in your config:
     vim.api.nvim_set_hl(0, 'MinuetChatSeparator', { fg = '#374151' })
 <
 
-Types of copilot highlights:
+Types of highlights:
 
 - `MinuetChatHeader` - Header highlight in chat buffer
 - `MinuetChatSeparator` - Separator highlight in chat buffer
@@ -402,15 +479,15 @@ Types of copilot highlights:
 - `MinuetChatStatus` - Status and spinner in chat buffer
 - `MinuetChatHelp` - Help text in chat buffer
 - `MinuetChatResource` - Resource highlight in chat buffer (e.g. `#file`, `#gitdiff`)
-- `MinuetChatTool` - Tool call highlight in chat buffer (e.g. `@copilot`)
+- `MinuetChatTool` - Tool call highlight in chat buffer (e.g. `@minuet`)
 - `MinuetChatPrompt` - Prompt highlight in chat buffer (e.g. `/Explain`, `/Review`)
-- `MinuetChatModel` - Model highlight in chat buffer (e.g. `$gpt-5-mini`)
+- `MinuetChatModel` - Model highlight in chat buffer (e.g. `$gpt-6-luna`)
 - `MinuetChatUri` - URI highlight in chat buffer (e.g. `##https://...`)
 - `MinuetChatAnnotation` - Annotation highlight in chat buffer (file headers, tool call headers, tool call body)
 - `MinuetChatAnnotationHeader` - Annotation header highlight in chat buffer
 
 
-PROMPTS                                                  *MinuetChat-prompts*
+PROMPTS                                     *MinuetChat-configuration-prompts*
 
 Define your own prompts in the configuration:
 
@@ -434,20 +511,20 @@ Define your own prompts in the configuration:
 <
 
 
-FUNCTIONS                                              *MinuetChat-functions*
+FUNCTIONS                                 *MinuetChat-configuration-functions*
 
 Use `trusted_tools` to control which tool calls are executed automatically:
 
 >lua
     {
       trusted_tools = nil, -- default: require approval for all tool calls
-    
+
       -- trust all functions in a group
-      -- trusted_tools = 'copilot',
-    
+      -- trusted_tools = 'minuet',
+
       -- trust specific functions by name or groups by name
       -- trusted_tools = { 'file', 'glob', 'grep' },
-    
+
       -- trust every enabled tool call
       -- trusted_tools = true,
     }
@@ -506,9 +583,66 @@ If a function has a `uri`, it can be used manually with `#birthday:Alice`.
 Functions without a `uri` are tool-only and can only be called by the model.
 
 
-PROVIDERS                                              *MinuetChat-providers*
+PROVIDERS                                 *MinuetChat-configuration-providers*
 
-Add custom AI providers:
+The plugin comes with a built-in `openai` provider that works with any
+OpenAI-compatible API.
+
+
+OPENAI ~
+
+>lua
+    {
+      providers = {
+        openai = {
+          api_key = 'sk-...',
+          base_url = 'https://api.openai.com/v1',
+          models = {
+            { id = 'gpt-6-luna', name = 'GPT-6 Luna', max_input_tokens = 1050000, max_output_tokens = 128000, streaming = true, tools = true },
+            { id = 'gpt-6.1-sol', name = 'GPT-6.1 Sol', max_input_tokens = 1050000, max_output_tokens = 128000, streaming = true, tools = true },
+          },
+        },
+      }
+    }
+<
+
+
+DEEPSEEK ~
+
+>lua
+    {
+      providers = {
+        openai = {
+          api_key = vim.env.DEEPSEEK_API_KEY,
+          base_url = 'https://api.deepseek.com',
+          models = {
+            { id = 'deepseek-flash', name = 'DeepSeek Flash', max_input_tokens = 1000000, max_output_tokens = 384000, streaming = true, tools = true },
+            { id = 'deepseek-v4-pro', name = 'DeepSeek V4 Pro', max_input_tokens = 1000000, max_output_tokens = 384000, streaming = true, tools = true },
+          },
+        },
+      }
+    }
+<
+
+
+OLLAMA (LOCAL) ~
+
+>lua
+    {
+      providers = {
+        openai = {
+          api_key = 'ollama',
+          base_url = 'http://localhost:11434/v1',
+          models = {
+            { id = 'llama3.2', name = 'Llama 3.2', max_input_tokens = 128000, max_output_tokens = 4096, streaming = true, tools = true },
+            { id = 'qwen2.5-coder', name = 'Qwen 2.5 Coder', max_input_tokens = 128000, max_output_tokens = 4096, streaming = true, tools = true },
+          },
+        },
+      }
+    }
+<
+
+You can also add custom providers:
 
 >lua
     {
@@ -516,9 +650,9 @@ Add custom AI providers:
         my_provider = {
           get_url = function(opts) return 'https://api.example.com/chat' end,
           get_headers = function() return { ['Authorization'] = 'Bearer ' .. api_key } end,
-          get_models = function() return { { id = 'gpt-5-mini', name = 'GPT-5 mini model' } } end,
-          prepare_input = require('MinuetChat.config.providers').copilot.prepare_input,
-          prepare_output = require('MinuetChat.config.providers').copilot.prepare_output,
+          get_models = function() return { { id = 'my-model', name = 'My Model' } } end,
+          prepare_input = require('MinuetChat.config.providers').openai.prepare_input,
+          prepare_output = require('MinuetChat.config.providers').openai.prepare_output,
         }
       }
     }
@@ -530,111 +664,110 @@ Add custom AI providers:
     {
       -- Optional: Disable provider
       disabled?: boolean,
-    
+
       -- Optional: Extra info about the provider displayed in info panel
       get_info?(headers: table): string[]
-    
+
       -- Optional: Get extra request headers with optional expiration time
       get_headers?(): table<string,string>, number?,
-    
+
       -- Optional: Get API endpoint URL
       get_url?(opts: MinuetChat.Provider.options): string,
-    
+
       -- Optional: Prepare request input
       prepare_input?(inputs: table<MinuetChat.Provider.input>, opts: MinuetChat.Provider.options): table,
-    
+
       -- Optional: Prepare response output
       prepare_output?(output: table, opts: MinuetChat.Provider.options): MinuetChat.Provider.output,
-    
+
       -- Optional: Get available models
       get_models?(headers: table): table<MinuetChat.Provider.model>,
-    
+
       -- Optional: Resolve a user-facing model id to a provider model id.
-      -- Second return value is optional extra request headers (e.g. Copilot-Session-Token).
+      -- Second return value is optional extra request headers.
       resolve_model?(headers: table, model: string): string, table?,
     }
 <
 
 **Built-in providers:**
 
-- `copilot` - GitHub Copilot (default)
-- `github_models` - GitHub Models (disabled by default)
+- `openai` - OpenAI-compatible API (default)
 
 
 ==============================================================================
-5. API Reference                                   *MinuetChat-api-reference*
+5. API Reference                                    *MinuetChat-api-reference*
 
 
-CORE                                                        *MinuetChat-core*
+CORE                                           *MinuetChat-api-reference-core*
 
 >lua
     local chat = require('MinuetChat')
-    
+
     -- Basic Chat Functions
     chat.ask(prompt, config)      -- Ask a question with optional config
-    
+
     -- Window Management
     chat.open(config)             -- Open chat window with optional config
     chat.close()                  -- Close chat window
     chat.toggle(config)           -- Toggle chat window visibility with optional config
     chat.reset()                  -- Reset the chat
     chat.stop()                   -- Stop current output
-    
+
     -- Prompt & Model Management
     chat.select_prompt(config)    -- Open prompt selector with optional config
     chat.select_model()           -- Open model selector
-    
+
     -- History Management
     chat.load(name, history_path) -- Load chat history
     chat.save(name, history_path) -- Save chat history
-    
+
     -- Configuration
     chat.setup(config)            -- Update configuration
     chat.log_level(level)         -- Set log level (debug, info, etc.)
 <
 
 
-CHAT WINDOW                                          *MinuetChat-chat-window*
+CHAT WINDOW                             *MinuetChat-api-reference-chat-window*
 
 You can also access the chat window UI methods through the `chat.chat` object:
 
 >lua
     local window = require('MinuetChat').chat
-    
+
     -- Chat UI State
     window:visible()             -- Check if chat window is visible
     window:focused()             -- Check if chat window is focused
-    
+
     -- Message Management
     window:get_message(role, cursor)               -- Get chat message by role, either last or closest to cursor
     window:add_message({ role, content }, replace) -- Add or replace a message in chat
     window:remove_message(role, cursor)            -- Remove chat message by role, either last or closest to cursor
     window:get_block(role, cursor)                 -- Get code block by role, either last or closest to cursor
-    
+
     -- Content Management
     window:append(text)          -- Append text to chat window
     window:clear()               -- Clear chat window content
     window:start()               -- Start writing to chat window
     window:finish()              -- Finish writing to chat window
-    
+
     -- Source Management
     window:get_source()          -- Get the current source buffer and window
     window:set_source(winnr)     -- Set the source window
-    
+
     -- Navigation
     window:follow()              -- Move cursor to end of chat content
     window:focus()               -- Focus the chat window
-    
+
     -- Advanced Features
     window:overlay(opts)         -- Show overlay with specified options
 <
 
 
-PROMPT PARSER                                      *MinuetChat-prompt-parser*
+PROMPT PARSER                         *MinuetChat-api-reference-prompt-parser*
 
 >lua
     local parser = require('MinuetChat.prompts')
-    
+
     parser.resolve_prompt()         -- Resolve prompt references
     parser.resolve_tools()          -- Resolve tools shared with the model via @...
     parser.resolve_functions()      -- Resolve manual function/resource references via #...
@@ -642,7 +775,7 @@ PROMPT PARSER                                      *MinuetChat-prompt-parser*
 <
 
 
-EXAMPLE USAGE                                      *MinuetChat-example-usage*
+EXAMPLE USAGE                         *MinuetChat-api-reference-example-usage*
 
 >lua
     -- Open chat, ask a question and handle response
@@ -652,39 +785,36 @@ EXAMPLE USAGE                                      *MinuetChat-example-usage*
         vim.notify('Got response: ' .. vim.trim(response.content):sub(1, 50) .. '...')
       end,
     })
-    
+
     -- Save and load chat history
     require('MinuetChat').save('my_debugging_session')
     require('MinuetChat').load('my_debugging_session')
-    
+
     -- Use custom sticky and model
     require('MinuetChat').ask('How can I optimize this?', {
-      model = 'gpt-5-mini',
+      model = 'gpt-6-luna',
       sticky = { '#buffer', '#gitdiff:staged' },
     })
-    
+
     -- Automatically trust a small read-only tool set
     require('MinuetChat').setup({
       trusted_tools = { 'file', 'glob', 'grep' },
     })
 <
 
-For more examples, see the examples wiki page
-<https://github.com/CopilotC-Nvim/minuet-chat.nvim/wiki/Examples-and-Tips>.
-
 
 ==============================================================================
-6. Development                                       *MinuetChat-development*
+6. Development                                        *MinuetChat-development*
 
 
-SETUP                                                      *MinuetChat-setup*
+SETUP                                           *MinuetChat-development-setup*
 
 To set up the environment:
 
 1. Clone the repository:
 
 >bash
-    git clone https://github.com/CopilotC-Nvim/minuet-chat.nvim
+    git clone https://github.com/antraxbr666/minuet-chat.nvim
     cd minuet-chat.nvim
 <
 
@@ -700,14 +830,14 @@ To run tests:
     make test
 <
 
-To run the same formatting check as CI:
+To check formatting:
 
 >bash
     stylua --check .
 <
 
 
-CONTRIBUTING                                        *MinuetChat-contributing*
+CONTRIBUTING                             *MinuetChat-development-contributing*
 
 1. Fork the repository
 2. Create your feature branch
@@ -719,25 +849,24 @@ See CONTRIBUTING.md </CONTRIBUTING.md> for detailed guidelines.
 
 
 ==============================================================================
-7. Contributors                                     *MinuetChat-contributors*
+7. Credits                                                *MinuetChat-credits*
 
-Thanks goes to these wonderful people (emoji key
-<https://allcontributors.org/docs/en/emoji-key>):
+minuet-chat.nvim is a fork of CopilotChat.nvim
+<https://github.com/CopilotC-Nvim/CopilotChat.nvim>, reworked to use any
+OpenAI-compatible API instead of GitHub Copilot. Thanks to its authors and
+contributors for the original work. Both projects are licensed under the
+GPL-3.0 <LICENSE>.
 
-gptlang💻 📖Dung Duc Huynh (Kaka)💻 📖Ahmed Haracic💻Trí Thiện Nguyễn💻He Zhizhou💻Guruprakash Rajakkannu💻kristofka💻PostCyberPunk📖Katsuhiko Nishimra💻Erno Hopearuoho💻Shaun Garwood💻neutrinoA4💻 📖Jack Muratore💻Adriel Velazquez💻 📖Tomas Slusny💻 📖Nisal📖Tobias Gårdhus📖Petr Dlouhý📖Dylan Madisetti💻Aaron Weisberg💻 📖Jose Tlacuilo💻 📖Kevin Traver💻 📖dTry💻Arata Furukawa💻Ling💻Ivan Frolov💻Folke Lemaitre💻 📖GitMurf💻Dmitrii Lipin💻jinzhongjia📖guill💻Sjon-Paul Brown💻Renzo Mondragón💻 📖fjchen7💻Radosław Woźniak💻JakubPecenka💻thomastthai📖Tomáš Janoušek💻Toddneal Stallworth📖Sergey Alexandrov💻Léopold Mebazaa💻JunKi Jin💻abdennourzahaf📖Josiah💻Tony Fischer💻 📖Kohei Wada💻Sebastian Yaghoubi📖johncming💻Rokas Brazdžionis💻Sola📖 💻Mani Chandra💻Nischal Basuti📖Teo Ljungberg💻Joe Price💻Yufan You📖 💻Manish Kumar💻Anton Ždanov📖 💻Fredrik Averpil💻Aaron D Borden💻Md. Iftakhar Awal Chowdhury💻 📖Danilo Horta💻Mihamina Rakotomandimby📖 💻Ajmal S💻Samiul Islam💻Rui Costa💻CTCHEN💻Tobias Wölfel💻Alexander Garcia💻Max Kharandziuk💻Xinyu Xiang💻junqizhang💻Calum Lynch💻sirjls💻Vladimir Kolchurin💻RoseSecurity📖 💻Abhraneel Mukherjee💻This project follows the all-contributors
-<https://github.com/all-contributors/all-contributors> specification.
-Contributions of any kind are welcome!
-
-
-==============================================================================
-8. Stargazers                                         *MinuetChat-stargazers*
-
-<https://starchart.cc/CopilotC-Nvim/minuet-chat.nvim>
 
 ==============================================================================
-9. Links                                                   *MinuetChat-links*
+8. Stargazers                                          *MinuetChat-stargazers*
 
-1. *Stargazers over time*: https://starchart.cc/CopilotC-Nvim/minuet-chat.nvim.svg?variant=adaptive
+<https://starchart.cc/antraxbr666/minuet-chat.nvim>
+
+==============================================================================
+9. Links                                                    *MinuetChat-links*
+
+1. *Stargazers over time*: https://starchart.cc/antraxbr666/minuet-chat.nvim.svg?variant=adaptive
 
 Generated by panvimdoc <https://github.com/kdheepak/panvimdoc>
 

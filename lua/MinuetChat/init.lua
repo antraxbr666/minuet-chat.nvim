@@ -316,7 +316,7 @@ function M.toggle(config)
   end
 end
 
---- Select default Copilot GPT model.
+--- Select default model.
 function M.select_model()
   async.run(function()
     local models = client:models()
@@ -432,7 +432,7 @@ function M.select_prompt(config)
   end)
 end
 
---- Ask a question to the Copilot model.
+--- Ask a question to the model.
 ---@param prompt string?
 ---@param config MinuetChat.config.Shared?
 ---@return MinuetChat.client.AskResponse? response The response from the LLM (only in headless mode)
