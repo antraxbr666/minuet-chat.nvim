@@ -692,22 +692,28 @@ git clone https://github.com/antraxbr666/minuet-chat.nvim
 cd minuet-chat.nvim
 ```
 
-2. Install development dependencies:
+2. Install the development tools: [StyLua](https://github.com/JohnnyMorganz/StyLua) for formatting and [pandoc](https://pandoc.org/) for `make docs`. On Arch Linux:
 
 ```bash
-make install-pre-commit
+sudo pacman -S stylua pandoc-cli
 ```
 
-To run tests:
+3. Run the tests:
 
 ```bash
 make test
 ```
 
-To check formatting:
+4. Check formatting:
 
 ```bash
 stylua --check .
+```
+
+5. After editing `README.md`, regenerate the vimdoc:
+
+```bash
+make docs
 ```
 
 ## Contributing

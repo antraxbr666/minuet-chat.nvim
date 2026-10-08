@@ -20,11 +20,7 @@ endif
 LUA_VERSIONS := luajit lua51
 BUILD_DIR := build
 
-.PHONY: help install-cli install-pre-commit install test docs tiktoken clean
-
-install-pre-commit:
-	pip install pre-commit
-	pre-commit install
+.PHONY: test docs all luajit lua51 tiktoken clean
 
 test:
 	nvim --headless --clean -u ./scripts/test.lua

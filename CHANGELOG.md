@@ -21,6 +21,11 @@ All notable changes to minuet-chat.nvim are documented here.
 - Updated OpenAI and DeepSeek provider examples to current models.
 - Removed the migration guide and contributor list inherited from the original project.
 
+### Chores
+
+- Removed tooling inherited from the original project that this fork does not use: pre-commit, Prettier, cspell, Renovate, EditorConfig, EmmyLua config, the docsify site and `version.txt`.
+- Trimmed `.gitignore` to the paths the plugin actually creates.
+
 ## Before the fork
 
 minuet-chat.nvim started from [CopilotChat.nvim v4.7.4](https://github.com/CopilotC-Nvim/CopilotChat.nvim/releases/tag/v4.7.4). For earlier history, see the [CopilotChat.nvim changelog](https://github.com/CopilotC-Nvim/CopilotChat.nvim/blob/main/CHANGELOG.md).

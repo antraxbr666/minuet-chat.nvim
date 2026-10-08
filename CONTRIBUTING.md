@@ -18,7 +18,7 @@ A good branch name would be (where issue #325 is the ticket you're working on):
 git checkout -b 325-add-japanese-localization
 ```
 
-Make sure to check [Structure](#Structure) first to understand the project structure.
+Make sure to check [Structure](#structure) first to understand the project structure.
 
 ## Implement your fix or feature
 
@@ -47,8 +47,6 @@ git push --set-upstream origin 325-add-japanese-localization
 Go to the minuet-chat.nvim in your GitHub account, select your branch, and click the "Pull Request" button.
 
 ## Structure
-
-The architecture diagram is in [structure.drawio](/structure.drawio). Open it with [draw.io](https://app.diagrams.net/).
 
 ### Core
 

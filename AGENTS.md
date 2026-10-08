@@ -49,7 +49,7 @@ doc/MinuetChat.txt       — Vimdoc generated from README by panvimdoc (`make do
 ## Style and formatting
 
 - **Lua formatter:** StyLua — 2-space indent, 120 column width, single quotes preferred, Unix line endings. Config in `.stylua.toml`.
-- **Pre-commit hooks:** Prettier (markdown/json/yaml) + StyLua (Lua). CI will fail if StyLua check fails.
+- **Formatting:** run `stylua --check .` before committing. LazyVim formats Lua with StyLua on save using `.stylua.toml`.
 - **No linter** (no luacheck/selene configured).
 - Type annotations use EmmyLua/LuaCATS `---@class`, `---@param`, `---@return` style.
 
@@ -63,7 +63,7 @@ doc/MinuetChat.txt       — Vimdoc generated from README by panvimdoc (`make do
 
 - No CI is configured yet. Run `make test` and `stylua --check .` locally before pushing.
 - Regenerate `doc/MinuetChat.txt` with `make docs` after changing `README.md` (needs `pandoc`).
-- Version is tracked in `version.txt`. Record user-facing changes in `CHANGELOG.md`.
+- Record user-facing changes in `CHANGELOG.md`. Versions are git tags.
 
 ## Key gotchas
 
