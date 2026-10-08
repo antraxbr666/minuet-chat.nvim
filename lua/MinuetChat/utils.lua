@@ -191,27 +191,16 @@ M.system = async.wrap(function(cmd, cwd, callback)
   vim.system(cmd, { cwd = cwd, text = true }, callback)
 end, 3)
 
---- Schedule a function only when needed (not on main thread)
----@param callback function? The callback (optional, if omitted returns a callable)
----@return function? Callable if no callback provided
-function M.schedule_main(callback)
-  local function run(cb)
-    if vim.in_fast_event() then
-      vim.schedule(function()
-        cb()
-      end)
-    else
-      cb()
-    end
-  end
-
-  if callback then
-    run(callback)
+--- Yield to the main loop when running in a fast event context.
+--- Must be called from inside a plenary.async coroutine: `utils.schedule_main()`
+---@async
+M.schedule_main = async.wrap(function(callback)
+  if vim.in_fast_event() then
+    vim.schedule(callback)
   else
-    -- Return a callable that can be used as: local done = utils.schedule_main(); ...; done()
-    return run
+    callback()
   end
-end
+end, 1)
 
 --- Wait for a user input
 M.input = async.wrap(function(opts, callback)

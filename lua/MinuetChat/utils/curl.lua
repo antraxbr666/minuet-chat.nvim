@@ -5,6 +5,27 @@ local utils = require('MinuetChat.utils')
 
 local M = {}
 
+--- Copy request options with sensitive headers masked, for logging only
+---@param opts table?
+---@return table?
+local function redact(opts)
+  if type(opts) ~= 'table' or type(opts.headers) ~= 'table' then
+    return opts
+  end
+  local out = vim.tbl_extend('force', {}, opts)
+  out.headers = {}
+  for k, v in pairs(opts.headers) do
+    local key = k:lower()
+    if key == 'authorization' or key:find('api%-key') or key:find('token') then
+      out.headers[k] = '<redacted>'
+    else
+      out.headers[k] = v
+    end
+  end
+  return out
+end
+
+
 M.args = {
   timeout = 30000,
   raw = {
@@ -35,7 +56,7 @@ end
 ---@param opts table? The options
 ---@async
 M.get = async.wrap(function(url, opts, callback)
-  log.debug('GET request:', url, opts)
+  log.debug('GET request:', url, redact(opts))
   local args = {
     on_error = function(err)
       log.debug('GET error:', err)
@@ -78,7 +99,7 @@ end, 3)
 ---@param opts table? The options
 ---@async
 M.post = async.wrap(function(url, opts, callback)
-  log.debug('POST request:', url, opts)
+  log.debug('POST request:', url, redact(opts))
   local args = {
     on_error = function(err)
       log.debug('POST error:', err)
@@ -198,7 +219,7 @@ end
 ---@param opts table? The options
 ---@return table response, string? err
 function M.post_sync(url, opts)
-  log.debug('POST sync request:', url, opts)
+  log.debug('POST sync request:', url, redact(opts))
   opts = opts or {}
 
   local args = { url, '-X', 'POST' }
